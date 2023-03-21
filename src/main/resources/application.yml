@@ -2,16 +2,11 @@ server:
   port: 80
 
 spring:
-  #  messages:
-  #    encoding: UTF-8
-  #    basename: messages,error
-
   datasource:
     url: jdbc:h2:tcp://localhost/~/blog_search
     username: sa
     password:
     driver-class-name: org.h2.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -19,3 +14,17 @@ spring:
         hibernate:
           show_sql: true
           format_sql: true
+
+kakao:
+  url: "https://dapi.kakao.com/v2/search/blog"
+  key: "2dd4fb9fe77a5a034f8b602b61746269"
+
+naver:
+  url: "https://openapi.naver.com/v1/search/blog.json"
+  client:
+    id: "kSSzbiALBfCCraWXluFo"
+    secret: "HVv_ko1PVb"
+
+logging.level:
+  com.kakaobanktest.bolgsearch: debug
+  org.hibernate.SQL: debug

@@ -39,7 +39,7 @@ public class NaverSearchUtil implements SearchUtil{
         // default value
         int page = searchDTO.getPage() == null ? 1 : searchDTO.getPage();
         int size = searchDTO.getContentsLength() == null ? 10 : searchDTO.getContentsLength();
-        String sort = searchDTO.getSort().getNaver();
+        String sort = searchDTO.getSort() == null ? SortValue.ACCURACY.getNaver() : searchDTO.getSort().getNaver();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Naver-Client-Id", CLIENT_ID);
@@ -67,7 +67,7 @@ public class NaverSearchUtil implements SearchUtil{
                             .title(item.getTitle())
                             .url(item.getLink())
                             .contents(item.getDescription())
-                            .datetime(item.getPubDate())
+                            .datetime(item.getPostdate())
                             .thumbnail(item.getThumbnail())
                             .blogName(item.getBloggername())
                             .build())

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE) // List<SearchUtil>로 Bean 주입 될 때 최 우선순위 보장 -> 카카오 API를 첫번째로 시도 후 실패 시 다른 API 호출
 public class KaKaoSearchUtil implements SearchUtil{
     private final RestTemplate restTemplate;
     private final String API_URL;
@@ -37,7 +37,7 @@ public class KaKaoSearchUtil implements SearchUtil{
         // default value
         int page = searchDTO.getPage() == null ? 1 : searchDTO.getPage();
         int size = searchDTO.getContentsLength() == null ? 10 : searchDTO.getContentsLength();
-        String sort = searchDTO.getSort().getKakao();
+        String sort = searchDTO.getSort() == null ? SortValue.ACCURACY.getKakao() : searchDTO.getSort().getKakao();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK " + API_KEY);
@@ -69,10 +69,12 @@ public class KaKaoSearchUtil implements SearchUtil{
                             .blogName(document.getBlogname())
                             .build())
                     .collect(Collectors.toList());
+
+            int contentsTotal = response.getBody().getMeta().getTotalCount();
             return BlogContentsDTO.builder()
-                    .contentsTotal(response.getBody().getMeta().getTotalCount())
+                    .contentsTotal(contentsTotal)
                     .page(page)
-                    .pageTotal(response.getBody().getMeta().getPageableCount() / size + 1) // 총 페이지 = 노출가능 문서 수 / size + 1
+                    .pageTotal(contentsTotal / size + 1) // 총 페이지 = 노출가능 문서 수 / size + 1
                     .contentsList(blogContents)
                     .build();
         } else {

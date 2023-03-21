@@ -25,8 +25,9 @@ public class NaverSearchResponseDTO {
         private String title;
         private String link;
         private String description;
-        private String pubDate;
-        private String thumbnail;
         private String bloggername;
+        private String postdate;
+        private String thumbnail;
+
     }
 }

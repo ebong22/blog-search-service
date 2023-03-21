@@ -33,13 +33,11 @@ public class BlogSearchServiceImpl implements BlogSearchService{
         throw exHolder;
     }
 
-    //들여쓰기 //sevice에 추가
     @Override
     public List<Keyword> getPopularKeywords() {
         return keywordRepository.findTop10ByOrderByCountDesc();
     }
 
-    //들여쓰기
     @Override
     public void saveKeyword(String query) {
         Keyword keyword = keywordRepository.findByKeyword(query);

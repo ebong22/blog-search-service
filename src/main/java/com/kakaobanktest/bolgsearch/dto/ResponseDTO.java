@@ -9,8 +9,17 @@ import org.springframework.http.HttpStatus;
 @ToString
 @AllArgsConstructor
 public class ResponseDTO {
-    private final HttpStatus code;
-    private final Boolean success;
-    private final String message;
-    private final Object data;
+
+    private int code;
+    private HttpStatus status;
+    private Boolean success;
+    private String message;
+    private Object data;
+
+    public ResponseDTO(int code, HttpStatus status, Boolean success, String message) {
+        this.code = code;
+        this.status = status;
+        this.success = success;
+        this.message = message;
+    }
 }

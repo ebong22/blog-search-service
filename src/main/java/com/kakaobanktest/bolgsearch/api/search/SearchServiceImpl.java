@@ -1,4 +1,4 @@
-package com.kakaobanktest.bolgsearch.api.blogsearch;
+package com.kakaobanktest.bolgsearch.api.search;
 
 import com.kakaobanktest.bolgsearch.domain.Keyword;
 import com.kakaobanktest.bolgsearch.domain.KeywordRepository;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class BlogSearchServiceImpl implements BlogSearchService{
+public class SearchServiceImpl implements SearchService {
 
     private final List<SearchUtil> searchUtils;
     private final KeywordRepository keywordRepository;

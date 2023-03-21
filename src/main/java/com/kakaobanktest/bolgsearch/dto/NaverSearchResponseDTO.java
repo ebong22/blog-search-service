@@ -1,5 +1,6 @@
 package com.kakaobanktest.bolgsearch.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
@@ -23,10 +24,16 @@ public class NaverSearchResponseDTO {
     @Builder
     public static class Item {
         private String title;
+
         private String link;
+
         private String description;
-        private String bloggername;
+
+        @JsonProperty("bloggername")
+        private String bloggerName;
+
         private String postdate;
+
         private String thumbnail;
 
     }

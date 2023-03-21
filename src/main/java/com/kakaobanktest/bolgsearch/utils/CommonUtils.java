@@ -1,18 +1,34 @@
 package com.kakaobanktest.bolgsearch.utils;
 
+import com.kakaobanktest.bolgsearch.dto.SearchDTO;
+
 public class CommonUtils {
 
     /**
      * searchUtil parameter validation
-     * @param page
-     * @param size
+     * @param searchDTO
      */
-    public static void validationSearchUtilParam(int page, int size) {
-        if (page > 50) {
-            throw new IllegalArgumentException("[Illegal page] max page is 50");
+    public static void validationSearchUtilParam(SearchDTO searchDTO) {
+
+        //default value setting
+        if (searchDTO.getPage() == null) {
+            searchDTO.setPage(1);
         }
-        if (size > 50) {
-            throw new IllegalArgumentException("[Illegal ContentsLength] max ContentsLength is 50");
+        if (searchDTO.getContentsLength() == null) {
+            searchDTO.setContentsLength(10);
+        }
+
+        if (searchDTO.getPage() == 0) {
+            throw new IllegalArgumentException("[Illegal Data Range] min page is 1");
+        }
+        if (searchDTO.getPage() > 50) {
+            throw new IllegalArgumentException("[Illegal Data Range] max page is 50");
+        }
+        if (searchDTO.getContentsLength() == 0) {
+            throw new IllegalArgumentException("[Illegal Data Range] min ContentsLength is 1");
+        }
+        if (searchDTO.getContentsLength() > 50) {
+            throw new IllegalArgumentException("[Illegal Data Range] max ContentsLength is 50");
         }
     }
 }

@@ -15,8 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.kakaobanktest.bolgsearch.utils.CommonUtils.validationSearchUtilParam;
-
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE) // List<SearchUtil>로 Bean 주입 될 때 최 우선순위 보장 -> 카카오 API를 첫번째로 시도 후 실패 시 다른 API 호출
 public class KaKaoSearchUtil implements SearchUtil{
@@ -35,12 +33,9 @@ public class KaKaoSearchUtil implements SearchUtil{
 
     @Override
     public BlogContentsDTO search(SearchDTO searchDTO) throws Exception {
-        //@TODO  page, size api 문서에 맞게 제한사항 추가
-        // default value
-        int page = searchDTO.getPage() == null ? 1 : searchDTO.getPage();
-        int size = searchDTO.getContentsLength() == null ? 10 : searchDTO.getContentsLength();
+        int page = searchDTO.getPage();
+        int size = searchDTO.getContentsLength();
         String sort = searchDTO.getSort() == null ? SortValue.ACCURACY.getKakao() : searchDTO.getSort().getKakao();
-        validationSearchUtilParam(page, size);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "KakaoAK " + API_KEY);

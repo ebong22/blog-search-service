@@ -14,8 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.kakaobanktest.bolgsearch.utils.CommonUtils.validationSearchUtilParam;
-
 @Component
 @Order(2)
 public class NaverSearchUtil implements SearchUtil{
@@ -37,12 +35,9 @@ public class NaverSearchUtil implements SearchUtil{
 
     @Override
     public BlogContentsDTO search(SearchDTO searchDTO) throws Exception {
-        //@TODO  page, size api 문서에 맞게 제한사항 추가
-        // default value
-        int page = searchDTO.getPage() == null ? 1 : searchDTO.getPage();
-        int size = searchDTO.getContentsLength() == null ? 10 : searchDTO.getContentsLength();
+        int page = searchDTO.getPage();
+        int size = searchDTO.getContentsLength();
         String sort = searchDTO.getSort() == null ? SortValue.ACCURACY.getNaver() : searchDTO.getSort().getNaver();
-        validationSearchUtilParam(page, size);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Naver-Client-Id", CLIENT_ID);

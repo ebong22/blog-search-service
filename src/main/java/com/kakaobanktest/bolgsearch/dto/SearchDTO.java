@@ -13,4 +13,12 @@ public class SearchDTO {
     private Integer page;
     private Integer contentsLength;
     private SortValue sort;
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public void setContentsLength(Integer contentsLength) {
+        this.contentsLength = contentsLength;
+    }
 }

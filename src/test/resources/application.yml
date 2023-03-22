@@ -1,9 +1,12 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/blog_search_test
+    url: jdbc:h2:mem:testdbblog_search_test
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
   jpa:
     hibernate:
       ddl-auto: update

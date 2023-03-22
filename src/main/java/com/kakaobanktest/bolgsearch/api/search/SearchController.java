@@ -32,7 +32,7 @@ public class SearchController {
      */
     @GetMapping
     public ResponseDTO search(SearchDTO searchDTO) throws Exception {
-        searchService.saveKeyword(searchDTO.getQuery()); //search장애 여부 상관없이 검색기록 count는 기록하도록 transaction분리
+        searchService.saveKeyword(searchDTO.getQuery()); //search 장애 여부 상관없이 검색기록 count는 기록하도록 transaction 분리
 
         validationSearchUtilParam(searchDTO);
         BlogContentsDTO results = searchService.search(searchDTO);

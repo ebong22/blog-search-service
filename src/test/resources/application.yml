@@ -11,3 +11,18 @@ spring:
         hibernate:
           show_sql: true
           format_sql: true
+
+kakao:
+  url: "https://dapi.kakao.com/v2/search/blog"
+  key: "2dd4fb9fe77a5a034f8b602b61746269"
+
+#API 키들의 노출을 막기위해 gitignore에 추가하여야 하지만, 평가 시 과제 test를 위해 노출 상태로 작성함
+naver:
+  url: "https://openapi.naver.com/v1/search/blog.json"
+  client:
+    id: "kSSzbiALBfCCraWXluFo"
+    secret: "HVv_ko1PVb"
+
+logging.level:
+  com.kakaobanktest.bolgsearch: debug
+  org.hibernate.SQL: debug

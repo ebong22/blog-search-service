@@ -4,6 +4,8 @@ import com.blog.bolgsearch.dto.BlogContentsDTO;
 import com.blog.bolgsearch.dto.KeywordDTO;
 import com.blog.bolgsearch.dto.ResponseDTO;
 import com.blog.bolgsearch.dto.SearchDTO;
+import com.blog.bolgsearch.utils.searchutils.KaKaoSearchUtil;
+import com.blog.bolgsearch.utils.searchutils.NaverSearchUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,7 @@ public class SearchController {
      * 카카오 API로 검색 시도 후 장애 시 네이버 API를 통해 검색
      *
      * @param searchDTO
-     * @return
+     * @return ResponseDTO
      * @throws Exception
      */
     @GetMapping
@@ -43,7 +45,7 @@ public class SearchController {
     /**
      * 인기 검색어 목록<br/>
      * 최대 10개의 키워드를 많이 검색한 순서대로 제공
-     * @return
+     * @return ResponseDTO
      */
     @GetMapping("/popular")
     public ResponseDTO  getPopularKeywords() {

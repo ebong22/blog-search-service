@@ -16,13 +16,13 @@ import java.util.List;
 @Transactional
 public class SearchServiceImpl implements SearchService {
 
-    private final List<SearchUtil> searchUtils;
+    private final List<SearchUtil> searchUtils; // List<SearchUtil> -> 카카오 API를 첫번째로 시도 후 실패 시 다른 API 호출을 위해 List로 주입
     private final KeywordRepository keywordRepository;
 
     /**
      * 블로그 게시물 검색<br/>
-     *질의어를 통해 블로그 게시물 검색<br/>
-     *카카오 API로 검색 시도 후 장애 시 네이버 API를 통해 검색
+     * 질의어를 통해 블로그 게시물 검색<br/>
+     * 카카오 API로 검색 시도 후 장애 시 네이버 API를 통해 검색
      * @param searchDTO
      * @return
      * @throws Exception

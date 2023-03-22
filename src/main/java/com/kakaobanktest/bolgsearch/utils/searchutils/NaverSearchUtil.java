@@ -9,10 +9,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.kakaobanktest.bolgsearch.utils.CommonUtils.getUrlString;
 
 @Component
 @Order(2)
@@ -35,29 +36,16 @@ public class NaverSearchUtil implements SearchUtil{
 
     @Override
     public BlogContentsDTO search(SearchDTO searchDTO) throws Exception {
-        int page = searchDTO.getPage();
-        int size = searchDTO.getContentsLength();
         String sort = searchDTO.getSort() == null ? SortValue.ACCURACY.getNaver() : searchDTO.getSort().getNaver();
+        String url = getUrlString(API_URL, searchDTO, sort);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Naver-Client-Id", CLIENT_ID);
         headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
-
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(API_URL)
-                .queryParam("query", searchDTO.getQuery())
-                .queryParam("start", (page - 1) * size + 1)
-                .queryParam("display", size)
-                .queryParam("sort", sort);
-
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<NaverSearchResponseDTO> response = restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.GET,
-                entity,
-                NaverSearchResponseDTO.class
+        ResponseEntity<NaverSearchResponseDTO> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), NaverSearchResponseDTO.class
         );
-
         if (response.getStatusCode() == HttpStatus.OK) {
             List<NaverSearchResponseDTO.Item> items = response.getBody().getItems();
             List<BlogContents> blogContents = items.stream()
@@ -74,8 +62,8 @@ public class NaverSearchUtil implements SearchUtil{
             int contentsTotal = response.getBody().getTotal();
             return BlogContentsDTO.builder()
                     .contentsTotal(contentsTotal)
-                    .page(page)
-                    .pageTotal(contentsTotal / size + 1) // 총 페이지 = 전체 문서 수 / size + 1
+                    .page(searchDTO.getPage())
+                    .pageTotal(contentsTotal / searchDTO.getContentsLength() + 1) // 총 페이지 = 전체 문서 수 / size + 1
                     .contentsList(blogContents)
                     .build();
         } else {

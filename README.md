@@ -1,9 +1,15 @@
-# 블로그 검색 서비스 blog-search-service 
+# 블로그 검색 서비스  blog-search-service 
 
 키워드로 블로그 검색을 할 수 있는 서비스입니다.   
 카카오 블로그 검색 API를 기본으로 사용하며 장애가 발생한 경우,
 네이버 블로그 검색 API를 통해 데이터를 제공합니다.
 * API 명세 : https://ebong.notion.site/634c0230154942dab6b8a7e64beac63e
+* jar 다운로드 : https://github.com/ebong22/blog-search-service/releases/download/v1.0/bolg-search-0.0.1-SNAPSHOT.jar
+```
+wget https://github.com/ebong22/blog-search-service/releases/download/v1.0/bolg-search-0.0.1-SNAPSHOT.jar # 다운로드
+java -jar ./bolg-search-0.0.1-SNAPSHOT.jar # 실행
+```
+
 
 ## 개발 환경
 * Java17
